@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include "emulator/Emulator.hpp"
 
 int main(int argc, char** argv) {
     if (argc != 2) {
