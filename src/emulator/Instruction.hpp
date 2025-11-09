@@ -1,8 +1,7 @@
 #pragma once
 #include "Environment.hpp"
 
-class Instruction
-{
+class Instruction {
 public:
     const unsigned int raw{};
     virtual void op(Environment& env) = 0;
