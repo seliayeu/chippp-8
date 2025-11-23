@@ -12,7 +12,9 @@ public:
     SkipEqualByte(unsigned int raw, Register reg, unsigned char byte) : raw{ raw }, reg{ reg }, byte{ byte } {};
     void op(Environment& env) override {
         unsigned int regInd{ static_cast<unsigned int>(reg) };
-        if (env.registers[regInd] == byte)
+        if (env.VRegisters[regInd] == byte)
             env.pc += 2;
+        else
+            env.pc += 1;
     }
 };

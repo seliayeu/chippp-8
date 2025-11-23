@@ -12,6 +12,7 @@ public:
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
         unsigned int sourceInd{ static_cast<unsigned int>(source) };
-        env.registers[destInd] ^= env.registers[sourceInd];
+        env.VRegisters[destInd] ^= env.VRegisters[sourceInd];
+        env.pc += 1;
     }
 };

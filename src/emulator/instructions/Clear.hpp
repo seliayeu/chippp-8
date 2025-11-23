@@ -9,5 +9,6 @@ public:
     Clear(unsigned int raw) : raw{ raw } {};
     void op(Environment& env) override {
         env.clearDisplay();
+        env.pc += 1;
     }
 };

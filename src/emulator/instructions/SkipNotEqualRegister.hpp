@@ -13,7 +13,9 @@ public:
     void op(Environment& env) override {
         unsigned int reg1Ind{ static_cast<unsigned int>(reg1) };
         unsigned int reg2Ind{ static_cast<unsigned int>(reg2) };
-        if (env.registers[reg1Ind] != env.registers[reg2Ind] )
+        if (env.VRegisters[reg1Ind] != env.VRegisters[reg2Ind] )
             env.pc += 2;
+        else
+            env.pc += 1;
     }
 };

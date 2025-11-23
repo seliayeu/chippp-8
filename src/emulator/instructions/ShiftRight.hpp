@@ -4,20 +4,18 @@
 #include "../Environment.hpp"
 #include <limits.h>
 
-class AddRegister : public Instruction {
+class ShiftRight : public Instruction {
 public:
     unsigned int raw;
     const Register dest{};
-    const Register source{};
     const unsigned char byte{};
-    AddRegister(unsigned int raw, Register dest, Register source) : raw{ raw }, dest{ dest }, source{ source } {};
+    ShiftRight(unsigned int raw, Register dest, Register) : raw{ raw }, dest{ dest } {};
 
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
-        unsigned int sourceInd{ static_cast<unsigned int>(source) };
-        unsigned int res{ static_cast<unsigned int>(env.VRegisters[destInd] + env.VRegisters[sourceInd]) }; 
-        if (res > UCHAR_MAX)
-            env.VRegisters[15] = 1; // set VF to 1 for carry
+        unsigned int res{ static_cast<unsigned int>(env.VRegisters[destInd] >> 1) }; 
+        if ((env.VRegisters[destInd] & 0x01) == 1)
+            env.VRegisters[15] = 1; // set VF to 1
         else
             env.VRegisters[15] = 0;
         env.VRegisters[destInd] = static_cast<unsigned char>(res);

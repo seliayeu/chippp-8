@@ -3,11 +3,11 @@
 #include "../Instruction.hpp"
 #include "../Environment.hpp"
 
-class Jump : public Instruction {
+class JumpAddress : public Instruction {
 public:
     unsigned int raw;
     unsigned int addr;
-    Jump(unsigned int raw, unsigned int addr) : raw{ raw }, addr{ addr } {};
+    JumpAddress(unsigned int raw, unsigned int addr) : raw{ raw }, addr{ addr } {};
     void op(Environment& env) override {
         env.pc = addr;
     }

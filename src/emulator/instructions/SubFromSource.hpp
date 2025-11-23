@@ -4,19 +4,19 @@
 #include "../Environment.hpp"
 #include <limits.h>
 
-class SubFromDest : public Instruction {
+class SubFromSource : public Instruction {
 public:
     unsigned int raw;
     const Register dest{};
     const Register source{};
     const unsigned char byte{};
-    SubFromDest(unsigned int raw, Register dest, Register source) : raw{ raw }, dest{ dest }, source{ source } {};
+    SubFromSource(unsigned int raw, Register dest, Register source) : raw{ raw }, dest{ dest }, source{ source } {};
 
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
         unsigned int sourceInd{ static_cast<unsigned int>(source) };
-        unsigned int res{ static_cast<unsigned int>(env.VRegisters[destInd] - env.VRegisters[sourceInd]) }; 
-        if (env.VRegisters[destInd] > env.VRegisters[sourceInd])
+        unsigned int res{ static_cast<unsigned int>(env.VRegisters[sourceInd] - env.VRegisters[destInd]) }; 
+        if (env.VRegisters[sourceInd] > env.VRegisters[destInd])
             env.VRegisters[15] = 1; // set VF to 1 for carry
         else     
             env.VRegisters[15] = 0;
