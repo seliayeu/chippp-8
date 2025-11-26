@@ -8,4 +8,5 @@ public:
     unsigned int raw;
     Invalid(unsigned int raw) : raw{ raw } {}
     void op(Environment&) override {}
+    ~Invalid() {}
 };

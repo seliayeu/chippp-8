@@ -10,11 +10,7 @@ public:
 
     SkipPressed(unsigned int raw, Register reg) : raw{ raw }, reg{ reg } {};
     void op(Environment& env) override {
-        // if (env.VRegisters[reg1Ind] != env.VRegisters[reg2Ind] )
-        //     env.pc += 2;
-        // else
-        //     env.pc += 1;
-        //     TODO
+        //TODO
         env.pc += 1;
     }
 };
