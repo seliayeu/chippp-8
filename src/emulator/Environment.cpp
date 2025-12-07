@@ -1,7 +1,7 @@
-#pragma once
+#include <vector>
 #include "Environment.hpp"
 
-Environment::Environment() {
+Environment::Environment(std::vector<unsigned char>& program) {
     std::random_device rd;
     gen = std::mt19937(rd());
 
@@ -116,6 +116,11 @@ Environment::Environment() {
     memory[77] = 0xF0;
     memory[78] = 0x80;
     memory[79] = 0x80;
+
+    unsigned int ind{ 0x200 };
+    for (auto& byte : program)
+        memory[static_cast<size_t>(ind++)] = byte;
+    end = ind;
 }
 
 void Environment::clearDisplay() {

@@ -5,9 +5,8 @@
 
 class JumpAddress : public Instruction {
 public:
-    unsigned int raw;
     unsigned int addr;
-    JumpAddress(unsigned int raw, unsigned int addr) : raw{ raw }, addr{ addr } {};
+    JumpAddress(unsigned int addr) : addr{ addr } {};
     void op(Environment& env) override {
         env.pc = addr;
     }

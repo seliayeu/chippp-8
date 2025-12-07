@@ -3,15 +3,17 @@
 #include "../Instruction.hpp"
 #include "../Environment.hpp"
 
+#include <iostream>
+
 class LoadByte : public Instruction {
 public:
-    unsigned int raw;
     const Register dest{};
     const unsigned char byte{};
-    LoadByte(unsigned int raw, Register dest, unsigned char byte) : raw{ raw }, dest{ dest }, byte{ byte }  {};
+    LoadByte(Register dest, unsigned char byte) : dest{ dest }, byte{ byte }  {};
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
+        std::cout << "R" << destInd << " = " << static_cast<unsigned int>(byte) << std::endl;
         env.VRegisters[destInd] = byte;
-        env.pc += 1;
+        env.pc += 2;
     }
 };

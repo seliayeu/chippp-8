@@ -1,7 +1,10 @@
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <string>
 #include <iomanip>
+
+#include "raylib.h"
 #include "emulator/Emulator.hpp"
 
 int main(int argc, char** argv) {
@@ -15,13 +18,14 @@ int main(int argc, char** argv) {
     f.open(filename);
 
     unsigned char byte;
-    int count{ 0 };
+    std::vector<unsigned char> program;
     while (!f.eof()) {
         f >> std::noskipws >> byte;
-        std::cout << std::setfill('0') << std::setw(2) << std::hex << static_cast<int>(byte);
-        if (++count % 2 == 0)
-            std::cout << std::endl;
+        program.push_back(byte);
     }
+
+    Emulator emulator{Environment{program}};
+    emulator.execute();
 
     return 0;
 }

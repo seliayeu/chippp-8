@@ -5,10 +5,8 @@
 
 class Clear : public Instruction {
 public:
-    unsigned int raw{ 0x00EE };
-    Clear(unsigned int raw) : raw{ raw } {};
     void op(Environment& env) override {
         env.clearDisplay();
-        env.pc += 1;
+        env.pc += 2;
     }
 };

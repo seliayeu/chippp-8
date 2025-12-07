@@ -11,6 +11,6 @@ public:
     void op(Environment& env) override {
         for (unsigned int i = 0; i <= static_cast<unsigned int>(reg); ++i)
             env.memory[env.IRegister++] = env.VRegisters[i];
-        env.pc += 1;
+        env.pc += 2;
     }
 };

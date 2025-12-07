@@ -2,15 +2,15 @@
 #include "../Register.hpp"
 #include "../Instruction.hpp"
 #include "../Environment.hpp"
-#include <limits.h>
+#include <iostream>
 
 class SetIImmediate : public Instruction {
 public:
     const unsigned int immediate{};
-    unsigned int raw;
-    SetIImmediate(unsigned int immediate, unsigned int raw) : immediate{ immediate }, raw{ raw } {};
+    SetIImmediate(unsigned int immediate) : immediate{ immediate } {};
     void op(Environment& env) override {
+        std::cout << "RI" << " = " << immediate << std::endl;
         env.IRegister = immediate;
-        env.pc += 1;
+        env.pc += 2;
     }
 };
