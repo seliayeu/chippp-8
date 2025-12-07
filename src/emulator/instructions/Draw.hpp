@@ -14,7 +14,7 @@ public:
         unsigned int x{ env.VRegisters[static_cast<unsigned int>(reg1)] };
         unsigned int y{ env.VRegisters[static_cast<unsigned int>(reg2)] };
 
-        env.FRegister = 0;
+        env.VRegisters[15] = 0;
         std::cout << "Drawing " << static_cast<unsigned int>(nibble) << " bytes starting from memory address " << env.IRegister << " to coordinates (" << x << ", " << y << ")" << std::endl;
 
         for (unsigned char i = 0; i < nibble; ++i) {
@@ -23,8 +23,8 @@ public:
 
             for (unsigned char j = 0; j < 8; ++j) {
                 bool bit{ static_cast<bool>((rowValues >> (7 - j)) & 1 )};
-                env.FRegister = (row[x + j] & bit) ? 1 : env.FRegister;
-                row.set(x + j, row[x + j] ^ bit);
+                env.VRegisters[15] = (row[x + j] & bit) ? 1 : env.VRegisters[15];
+                row.set((x + j) % 64, row[x + j] ^ bit);
             }
         }
 

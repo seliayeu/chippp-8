@@ -5,16 +5,15 @@
 
 class SkipEqualByte : public Instruction {
 public:
-    unsigned int raw;
     Register reg;
     unsigned char byte;
 
-    SkipEqualByte(unsigned int raw, Register reg, unsigned char byte) : raw{ raw }, reg{ reg }, byte{ byte } {};
+    SkipEqualByte(Register reg, unsigned char byte) : reg{ reg }, byte{ byte } {};
     void op(Environment& env) override {
         unsigned int regInd{ static_cast<unsigned int>(reg) };
         if (env.VRegisters[regInd] == byte)
-            env.pc += 2;
+            env.pc += 4;
         else
-            env.pc += 1;
+            env.pc += 2;
     }
 };

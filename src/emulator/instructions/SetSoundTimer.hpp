@@ -6,9 +6,10 @@
 class SetSoundTimer : public Instruction {
 public:
     Register reg{};
-    unsigned int raw;
-    SetSoundTimer(Register reg, unsigned int raw) : reg{ reg }, raw{ raw } {};
-    void op(Environment&) override {
-        // TODO
+
+    SetSoundTimer(Register reg) : reg{ reg } {};
+    void op(Environment& env) override {
+        env.soundRegister = env.VRegisters[static_cast<unsigned int>(reg)];
+        env.pc += 2;
     }
 };

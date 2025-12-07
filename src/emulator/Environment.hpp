@@ -2,13 +2,13 @@
 #include <array>
 #include <bitset>
 #include <random>
-#include <cstddef>
+#include <unordered_map>
 #include <vector>
+#include "Register.hpp"
 
 struct Environment {
     std::array<unsigned char, 16> VRegisters{};
     unsigned int IRegister;
-    unsigned int FRegister;
     unsigned char soundRegister{ 0 };
     unsigned char timerRegister{ 0 };
 
@@ -23,6 +23,12 @@ struct Environment {
     bool timerReady{ false };
     bool soundReady{ false };
 
+    bool waitKeyFlag{ false };
+    Register waitKeyReg{};
+
+    std::unordered_map<unsigned char, int> hexToRaylib;
+    std::unordered_map<int, unsigned char> raylibToHex;
+
     std::array<unsigned int, 15> spriteInds{};
 
     std::mt19937 gen{};
@@ -30,4 +36,6 @@ struct Environment {
 
     Environment(std::vector<unsigned char>& program);
     void clearDisplay();
+    bool checkPressed(unsigned char key);
+    void setWaitKey(Register reg);
 };

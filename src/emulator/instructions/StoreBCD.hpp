@@ -3,11 +3,10 @@
 #include "../Instruction.hpp"
 #include "../Environment.hpp"
 
-class StoreRegisters : public Instruction {
+class StoreBCD : public Instruction {
 public:
-    unsigned int raw;
     const Register reg{};
-    StoreRegisters(unsigned int raw, Register reg) : raw{ raw }, reg{ reg } {};
+    StoreBCD(Register reg) : reg{ reg } {};
     void op(Environment& env) override {
         unsigned char val{ env.VRegisters[static_cast<unsigned int>(reg)] };
         env.memory[env.IRegister] = val / 100;
@@ -15,6 +14,6 @@ public:
         env.memory[env.IRegister + 1] = val / 10;
         val %= 10;
         env.memory[env.IRegister + 2] = val;
-        env.pc += 1;
+        env.pc += 2;
     }
 };

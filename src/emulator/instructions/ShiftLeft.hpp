@@ -6,19 +6,22 @@
 
 class ShiftLeft : public Instruction {
 public:
-    unsigned int raw;
     const Register dest{};
     const unsigned char byte{};
-    ShiftLeft(unsigned int raw, Register dest, Register) : raw{ raw }, dest{ dest } {};
+    ShiftLeft(Register dest) : dest{ dest } {};
 
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
-        unsigned int res{ static_cast<unsigned int>(env.VRegisters[destInd] >> 1) }; 
-        if ((env.VRegisters[destInd] & 0x80) != 0)
+        unsigned int res{ static_cast<unsigned int>(env.VRegisters[destInd] << 1) }; 
+
+        bool setVF{ (env.VRegisters[destInd] & 0x80) > 0 };
+        env.VRegisters[destInd] = static_cast<unsigned char>(res);
+
+        if (setVF)
             env.VRegisters[15] = 1; // set VF to 1
         else
             env.VRegisters[15] = 0;
-        env.VRegisters[destInd] = static_cast<unsigned char>(res);
-        env.pc += 1;
+
+        env.pc += 2;
     }
 };

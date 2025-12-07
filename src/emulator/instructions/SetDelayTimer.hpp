@@ -6,9 +6,10 @@
 class SetDelayTimer : public Instruction {
 public:
     Register reg{};
-    unsigned int raw;
-    SetDelayTimer(Register reg, unsigned int raw) : reg{ reg }, raw{ raw } {};
-    void op(Environment&) override {
-        // TODO
+
+    SetDelayTimer(Register reg) : reg{ reg } {};
+    void op(Environment& env) override {
+        env.timerRegister = env.VRegisters[static_cast<unsigned int>(reg)];
+        env.pc += 2;
     }
 };

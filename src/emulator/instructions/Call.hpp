@@ -3,12 +3,12 @@
 #include "../Instruction.hpp"
 #include "../Environment.hpp"
 
-class JumpRegister : public Instruction {
+class Call : public Instruction {
 public:
-    const Register dest{};
     unsigned int addr;
-    JumpRegister(unsigned int addr) : addr{ addr } {};
+    Call(unsigned int addr) : addr{ addr } {};
     void op(Environment& env) override {
-        env.pc = addr + env.VRegisters[0];
+        env.stack[env.sp++] = env.pc + 2;
+        env.pc = addr;
     }
 };

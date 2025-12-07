@@ -6,9 +6,10 @@
 class WaitKey : public Instruction {
 public:
     Register reg{};
-    unsigned int raw;
-    WaitKey(Register reg, unsigned int raw) : reg{ reg }, raw{ raw } {};
-    void op(Environment&) override {
-        // TODO
+
+    WaitKey(Register reg) : reg{ reg } {};
+    void op(Environment& env) override {
+        env.setWaitKey(reg);
+        //TODO make it increment here instead
     }
 };

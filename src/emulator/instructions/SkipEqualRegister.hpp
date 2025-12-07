@@ -9,13 +9,13 @@ public:
     Register reg1;
     Register reg2;
 
-    SkipEqualRegister(unsigned int raw, Register reg1, Register reg2) : raw{ raw }, reg1{ reg1 }, reg2{ reg2 } {};
+    SkipEqualRegister(Register reg1, Register reg2) : reg1{ reg1 }, reg2{ reg2 } {};
     void op(Environment& env) override {
         unsigned int reg1Ind{ static_cast<unsigned int>(reg1) };
         unsigned int reg2Ind{ static_cast<unsigned int>(reg2) };
         if (env.VRegisters[reg1Ind] == env.VRegisters[reg2Ind] )
-            env.pc += 2;
+            env.pc += 4;
         else
-            env.pc += 1;
+            env.pc += 2;
     }
 };

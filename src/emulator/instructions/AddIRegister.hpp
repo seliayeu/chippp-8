@@ -6,12 +6,11 @@
 
 class AddIRegister : public Instruction {
 public:
-    unsigned int raw;
     const Register reg{};
-    AddIRegister(unsigned int raw, Register reg) : raw{ raw }, reg{ reg } {};
+    AddIRegister(Register reg) : reg{ reg } {};
 
     void op(Environment& env) override {
         env.IRegister += env.VRegisters[static_cast<unsigned int>(reg)];
-        env.pc += 1;
+        env.pc += 2;
     }
 };

@@ -5,11 +5,11 @@
 
 #include <iostream>
 
-class LoadByte : public Instruction {
+class StoreByte : public Instruction {
 public:
     const Register dest{};
     const unsigned char byte{};
-    LoadByte(Register dest, unsigned char byte) : dest{ dest }, byte{ byte }  {};
+    StoreByte(Register dest, unsigned char byte) : dest{ dest }, byte{ byte }  {};
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
         std::cout << "R" << destInd << " = " << static_cast<unsigned int>(byte) << std::endl;

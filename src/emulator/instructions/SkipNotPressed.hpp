@@ -5,12 +5,13 @@
 
 class SkipNotPressed : public Instruction {
 public:
-    unsigned int raw;
     Register reg;
 
-    SkipNotPressed(unsigned int raw, Register reg) : raw{ raw }, reg{ reg } {};
+    SkipNotPressed(Register reg) : reg{ reg } {};
     void op(Environment& env) override {
-        // TODO
-        env.pc += 1;
+        if (!env.checkPressed(env.VRegisters[static_cast<unsigned char>(reg)]))
+            env.pc += 4;
+        else
+            env.pc += 2;
     }
 };

@@ -6,13 +6,12 @@
 
 class Random : public Instruction {
 public:
-    const unsigned char byte{};
     Register dest;
-    unsigned int raw;
-    Random(unsigned char byte, Register dest, unsigned int raw) : byte{ byte }, dest{ dest }, raw{ raw } {};
+    const unsigned char byte{};
+    Random(Register dest, unsigned char byte) : dest{ dest }, byte{ byte } {};
     void op(Environment& env) override {
         unsigned int destInd{ static_cast<unsigned int>(dest) };
         env.VRegisters[destInd] = env.dist(env.gen) & byte;
-        env.pc += 1;
+        env.pc += 2;
     }
 };

@@ -1,5 +1,8 @@
 #include <vector>
+#include <unordered_map>
 #include "Environment.hpp"
+#include "raylib.h"
+#include <iostream>
 
 Environment::Environment(std::vector<unsigned char>& program) {
     std::random_device rd;
@@ -121,9 +124,55 @@ Environment::Environment(std::vector<unsigned char>& program) {
     for (auto& byte : program)
         memory[static_cast<size_t>(ind++)] = byte;
     end = ind;
+
+
+    hexToRaylib[0x0] = KEY_ZERO;
+    hexToRaylib[0x1] = KEY_ONE;
+    hexToRaylib[0x2] = KEY_TWO;
+    hexToRaylib[0x3] = KEY_THREE;
+    hexToRaylib[0x3] = KEY_THREE;
+    hexToRaylib[0x4] = KEY_FOUR;
+    hexToRaylib[0x5] = KEY_FIVE;
+    hexToRaylib[0x6] = KEY_SIX;
+    hexToRaylib[0x7] = KEY_SEVEN;
+    hexToRaylib[0x8] = KEY_EIGHT;
+    hexToRaylib[0x9] = KEY_NINE;
+    hexToRaylib[0xA] = KEY_A;
+    hexToRaylib[0xB] = KEY_B;
+    hexToRaylib[0xC] = KEY_C;
+    hexToRaylib[0xD] = KEY_D;
+    hexToRaylib[0xE] = KEY_E;
+    hexToRaylib[0xF] = KEY_F;
+
+    raylibToHex[KEY_ZERO] = 0x0;
+    raylibToHex[KEY_ONE] = 0x1;
+    raylibToHex[KEY_TWO] = 0x2;
+    raylibToHex[KEY_THREE] = 0x3;
+    raylibToHex[KEY_THREE] = 0x3;
+    raylibToHex[KEY_FOUR] = 0x4;
+    raylibToHex[KEY_FIVE] = 0x5;
+    raylibToHex[KEY_SIX] = 0x6;
+    raylibToHex[KEY_SEVEN] = 0x7;
+    raylibToHex[KEY_EIGHT] = 0x8;
+    raylibToHex[KEY_NINE] = 0x9;
+    raylibToHex[KEY_A] = 0xA;
+    raylibToHex[KEY_B] = 0xB;
+    raylibToHex[KEY_C] = 0xC;
+    raylibToHex[KEY_D] = 0xD;
+    raylibToHex[KEY_E] = 0xE;
+    raylibToHex[KEY_F] = 0xF;
 }
 
 void Environment::clearDisplay() {
     for (auto& row : display)
         row.reset();
+}
+
+bool Environment::checkPressed(unsigned char key) {
+    return IsKeyDown(hexToRaylib[key]);
+}
+
+void Environment::setWaitKey(Register reg) {
+    waitKeyFlag = true;
+    waitKeyReg = reg;
 }
